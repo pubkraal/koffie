@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="nl">
+    <head>
+        <title>Wie moet de koffiemachine schoonmaken?</title>
+        <style>
+        body {
+            font-family: arial, serif;
+        }
+        #names .person {
+            background-color: #F0F0F0;
+            width: 14em;
+            height: 2em;
+            line-height: 2em;
+            padding-left: 1em;
+            margin-bottom: 1em;
+            margin-right: 1em;
+            display: inline-block;
+        }
+        #names .person.active {
+            background-color: #F0F0FF;
+        }
+        #names .person.desjaak {
+            background-color: #0F0F0F;
+            color: white;
+        }
+        a {
+            width: 14em;
+            height: 2em;
+            line-height: 2em;
+            display: block;
+            padding-left: 1em;
+            background-color: red;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    </head>
+    <body>
+        <h1>Wie moet de koffiemachine schoonmaken?</h1>
+        <div id="point">
+            <p>Vandaag is de volgende persoon de lul:</p>
+            <div id="names">
+            </div>
+        </div>
+        <div>
+            <a href="#" onclick="return gamble();"><span>Gaan!</span></a>
+        </div>
+        <script>
+                var something = 7000;
+                var maxspeed = 30;
+                var degra_min = 3;
+                var degra_max = 8;
+                var speed = 45 + Math.random() * maxspeed;
+                var people = ['John',
+                              'Jaap',
+                              'Paul',
+                              'Stefan',
+                              'Martijn',
+                              'Michel',
+                              'Kevin',
+                              'Tobias'];
+
+                $(document).ready(function () {
+                    for (var idx in people) {
+                        var person = people[idx];
+                        $('<div class="person">'+ person +'</div>').appendTo('#names');
+                    }
+                });
+
+                function gamble() {
+                    var start_at = Math.floor(Math.random() * people.length);
+                    $('#names .person').eq(start_at).addClass('active');
+                    window.setTimeout(next_step, something/speed);
+                }
+
+                function next_step() {
+                    if (speed <= 0) {
+                        $('.person.active').addClass('desjaak').removeClass('active');
+                        $('a').hide();
+
+                        return;
+                    }
+
+                    p = $('.person.active').next();
+                    if (!p.length) {
+                        p = $('.person').first();
+                    }
+                    $('.person').removeClass('active');
+                    p.addClass('active');
+
+                    var slower = Math.max(degra_max - (Math.random() * (degra_max - degra_min)), degra_min);
+                    speed = Math.max(0, speed - slower);
+                    window.setTimeout(next_step, something/speed);
+                }
+        </script>
+    </body>
+</html>
