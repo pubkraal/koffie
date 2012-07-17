@@ -48,10 +48,10 @@
             <a href="#" onclick="return gamble();"><span>Gaan!</span></a>
         </div>
         <script>
-                var something = 5000;
-                var maxspeed = 30;
-                var degra_min = 0.5;
-                var degra_max = 2;
+                var something = 3000;
+                var maxspeed = 90;
+                var degra_min = 0.25;
+                var degra_max = 1;
                 var speed = 45 + Math.random() * maxspeed;
                 var people = ['John',
                               'Jaap',
@@ -77,6 +77,8 @@
                     var start_at = Math.floor(Math.random() * people.length);
                     $('#names .person').eq(start_at).addClass('active');
                     window.setTimeout(next_step, something/speed);
+
+                    return false;
                 }
 
                 function next_step() {
