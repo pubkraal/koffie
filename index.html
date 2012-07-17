@@ -17,7 +17,7 @@
             display: inline-block;
         }
         #names .person.active {
-            background-color: #F0F0FF;
+            background-color: #E0E0FF;
         }
         #names .person.desjaak {
             background-color: #0F0F0F;
@@ -48,10 +48,10 @@
             <a href="#" onclick="return gamble();"><span>Gaan!</span></a>
         </div>
         <script>
-                var something = 7000;
+                var something = 5000;
                 var maxspeed = 30;
-                var degra_min = 3;
-                var degra_max = 8;
+                var degra_min = 0.5;
+                var degra_max = 2;
                 var speed = 45 + Math.random() * maxspeed;
                 var people = ['John',
                               'Jaap',
@@ -73,6 +73,7 @@
                 });
 
                 function gamble() {
+                    $('a').hide();
                     var start_at = Math.floor(Math.random() * people.length);
                     $('#names .person').eq(start_at).addClass('active');
                     window.setTimeout(next_step, something/speed);
@@ -81,7 +82,6 @@
                 function next_step() {
                     if (speed <= 0) {
                         $('.person.active').addClass('desjaak').removeClass('active');
-                        $('a').hide();
 
                         return;
                     }
